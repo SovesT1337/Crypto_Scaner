@@ -46,7 +46,7 @@ class Starkterrator():
                     writer = csv.DictWriter(f, response.json()['data']['get_execution']['execution_succeeded']['columns'])
                     writer.writeheader()
                     writer.writerows(response.json()['data']['get_execution']['execution_succeeded']['data'])
-                    # Файл на 121 мегабайт это конечно прикольно. на загрузку надо солидно времени. А как это обрабатывать, еще интереснее
+                    # Файл на 121 мегабайт это конечно прикольно. На загрузку надо солидно времени. А как это обрабатывать, еще интереснее
         else:
             print("Something gone wrong")
 
@@ -56,10 +56,4 @@ class Starkterrator():
     
 
     def find_in_ranking(self, list_of_accounts):
-        print(self.df[self.df['u'].isin(list_of_accounts)])
-
-
-if __name__ == "__main__":
-    shit = Starkterrator()
-    shit.read_ranking_from_csv()
-    shit.find_in_ranking(["0xa66c0bf345c7d4a8150b13701a13d522e7ab9543", "0x8468529ed996d3c565ab66b7efac01bb171f3def"])
+        return self.df[self.df['u'].isin(list_of_accounts)]
