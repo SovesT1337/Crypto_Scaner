@@ -3,7 +3,6 @@ import time
 import random
 import csv
 import pandas
-import re
 
 
 class Dune():
@@ -31,39 +30,14 @@ class Dune():
     }
     url = "https://dune.com/sixdegree/starknet-aridrop-simulation-ranking"
     api = 'https://app-api.dune.com/v1/graphql'
-    file_name_pattern = r'^[a-zA-Z0-9_-]+\.[cC][sS][vV]$'
-    file_to_read = ''
-    file_to_write = ''
     
     
     def __init__(self):
         self.session = session()
 
 
-    def is_csv_file(self, name):
-        if re.match(self.file_name_pattern, name):
-            return True
-        return False
-
-
-    def set_file_name_to_read(self, name):
-        if not self.is_csv_file(name):
-            raise Exception('Некорректное имя файла')
-        name = './' + name
-        try:
-            f = open(name, "r")
-        except IOError:
-            raise Exception('Такого файла не существует')
-        self.file_to_read = name
-
-
-    def set_file_name_to_write(self, name):
-        if not self.is_csv_file(name):
-            raise Exception('Некорректное имя файла')
-        self.file_to_write = './' + name
-
-
-    def get_data(self):
+    def get_data(self, name):
+        file_name = './' + name
         code = self.session.get(self.url, headers = self.headers).status_code
         if code != 200:
             raise Exception('Нет доступа к сервису Dune')
@@ -72,7 +46,7 @@ class Dune():
         if response.status_code != 200:
             raise Exception('Нет доступа к сервису Dune')
         try:
-            with open(self.file_to_write, 'w') as f:
+            with open(file_name, 'w') as f:
                 writer = csv.DictWriter(f, response.json()['data']['get_execution']['execution_succeeded']['columns'])
                 writer.writeheader()
                 writer.writerows(response.json()['data']['get_execution']['execution_succeeded']['data'])
@@ -82,9 +56,10 @@ class Dune():
             raise ('Иная ошибка')
         
 
-    def read_ranking_from_csv(self):
+    def read_ranking_from_csv(self, name):
+        file_name = './' + name
         try:
-            self.df = pandas.read_csv(self.file_to_read)
+            self.df = pandas.read_csv(file_name)
         except FileNotFoundError:
             raise ('Не удается открыть файл на чтение')
         except :

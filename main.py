@@ -4,17 +4,10 @@ from etherscan import Etherscan
 if __name__ == "__main__":
     starknet = Dune()
     # file_name = 'starknet_users_ranking.csv'
-    while True:
-        try:
-            file_name = input("Введите название файла: ")
-            starknet.set_file_name_to_read(file_name)
-            starknet.set_file_name_to_write(file_name)
-            break
-        except:
-            print("Некорректное название файла или такого файла не существует")
+    file_name = input("Введите название файла: ")       
     try: 
-        # starknet.get_data()
-        starknet.read_ranking_from_csv()
+        # starknet.get_data(file_name)
+        starknet.read_ranking_from_csv(file_name)
     except Exception:
         print("Что-то пошло не так при открытии файла или загрузке информации")
 
