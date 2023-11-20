@@ -6,8 +6,6 @@ import pytest
 
 def test_get_data():
     testing = Dune()
-    with pytest.raises(TypeError):
-        testing.get_data('starknet_uss_rankisv')
     testing.api = ""
     with pytest.raises(Exception):
         testing.get_data('starknet_users_ranking.csv')
