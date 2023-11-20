@@ -3,8 +3,8 @@ from etherscan import Etherscan
 
 if __name__ == "__main__":
     starknet = Dune()
-    # file_name = 'starknet_users_ranking.csv'
-    file_name = input("Введите название файла: ")       
+    file_name = 'starknet_users_ranking.csv'
+    # file_name = input("Введите название файла: ")       
     try: 
         # starknet.get_data(file_name)
         starknet.read_ranking_from_csv(file_name)

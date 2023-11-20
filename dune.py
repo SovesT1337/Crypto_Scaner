@@ -67,5 +67,7 @@ class Dune():
         
 
     def find_in_ranking(self, list_of_accounts):
-        return self.df[self.df['u'].isin(list_of_accounts)]
+        table = self.df[self.df['u'].isin(list_of_accounts)].reset_index()
+        del table['index']
+        return table
     
