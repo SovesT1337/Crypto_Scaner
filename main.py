@@ -1,10 +1,9 @@
 from starkterractor import Starkterrator
 from etherscaninator import Ethersvaninator
-import pandas
 
 if __name__ == "__main__":
     shit1 = Starkterrator()
-    # shit1.get_data()
+    shit1.get_data()
     shit1.read_ranking_from_csv()
     shit2 = Ethersvaninator()
     address = ''
